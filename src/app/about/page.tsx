@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import Navigation from "../../components/Navigation";
 
@@ -39,7 +38,7 @@ export default function AboutPage() {
             </h1>
             <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
               Bridging the gap between compassionate hearts and hospitals in
-              need. We're transforming healthcare accessibility across Sri
+              need. We&apos;re transforming healthcare accessibility across Sri
               Lanka, one donation at a time.
             </p>
           </div>
@@ -165,7 +164,7 @@ export default function AboutPage() {
               So Far
             </h2>
             <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-              Every donation creates ripples of hope across Sri Lanka's
+              Every donation creates ripples of hope across Sri Lanka&apos;s
               healthcare system
             </p>
           </div>

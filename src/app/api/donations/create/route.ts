@@ -15,7 +15,16 @@ export async function POST(request: NextRequest) {
     
     // If this donation is for a specific shortage, validate funding limits
     let validatedAmount = donationData.amount
-    let fundingInfo: any = null
+    let fundingInfo: { 
+      shortage?: object; 
+      target?: number;
+      current_total?: number;
+      remaining_needed?: number; 
+      original_requested?: number;
+      was_capped?: boolean;
+      capped_amount?: number;
+      totalDonated?: number;
+    } | null = null
     
     if (donationData.shortage_id) {
       console.log('🔍 Validating funding for shortage:', donationData.shortage_id)
@@ -111,7 +120,14 @@ export async function POST(request: NextRequest) {
     console.log('✅ Donation record created with ID:', result.insertedId)
     
     // Prepare response with funding information
-    const response: any = {
+    const response: {
+      success: boolean;
+      donation_id: object;
+      order_id: string;
+      validated_amount: number;
+      funding_info?: object;
+      message?: string;
+    } = {
       success: true,
       donation_id: result.insertedId,
       order_id: donationData.order_id,

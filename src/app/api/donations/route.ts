@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     const donationsCollection = db.collection('donations')
     
     // Build query filter
-    let filter: any = {}
+    const filter: { status?: string; hospital_id?: string; shortage_id?: string } = {}
     if (status !== 'all') {
       filter.status = status
     }

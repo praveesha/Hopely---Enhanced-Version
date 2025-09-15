@@ -40,7 +40,12 @@ export class DonationAPI {
   }): Promise<{
     success: boolean;
     data?: Donation[];
-    pagination?: any;
+    pagination?: {
+      page?: number;
+      limit?: number;
+      total?: number;
+      totalPages?: number;
+    };
     error?: string;
   }> {
     try {

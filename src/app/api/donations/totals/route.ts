@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     const donationsCollection = db.collection('donations')
     
     // Build query filter
-    let filter: any = {}
+    const filter: { hospital_id?: string; shortage_id?: string } = {}
     if (hospitalId) {
       filter.hospital_id = hospitalId
     }

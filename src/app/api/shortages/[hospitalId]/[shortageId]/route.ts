@@ -5,14 +5,14 @@ import { ShortageStatus } from '@/models/MedicineRequest'
 // DELETE /api/shortages/[hospitalId]/[shortageId] - Cancel/delete a shortage
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { hospitalId: string; shortageId: string } }
+  { params }: { params: Promise<{ hospitalId: string; shortageId: string }> }
 ) {
   try {
     const client = await clientPromise
     const db = client.db('hopely_db')
     const shortageCollection = db.collection('medicine_shortages')
 
-    const { hospitalId, shortageId } = params
+    const { hospitalId, shortageId } = await params
 
     console.log("🗑️ Deleting shortage:", shortageId, "for hospital:", hospitalId)
 

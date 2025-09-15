@@ -8,7 +8,12 @@ import { formatCurrency } from "../../../../lib/donationUtils";
 
 declare global {
   interface Window {
-    payhere: any;
+    payhere: {
+      startPayment: (payment: object) => void;
+      onCompleted: (orderId: string) => void;
+      onDismissed: () => void;
+      onError: (error: string) => void;
+    };
   }
 }
 
@@ -45,7 +50,6 @@ export default function DonatePage() {
     donorCity: "Colombo",
   });
   const [busy, setBusy] = useState(false);
-  const [done, setDone] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [currentProgress, setCurrentProgress] = useState<{
     total_donated: number;

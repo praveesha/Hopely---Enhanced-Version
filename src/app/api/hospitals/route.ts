@@ -13,7 +13,7 @@ export async function GET() {
       .project({ name: 1, location: 1, hospitalId: 1 }) // <-- include hospitalId
       .toArray();
 
-    const out = docs.map((d: any) => ({
+    const out = docs.map((d: { _id?: object; name?: string; location?: string; hospitalId?: string }) => ({
       _id: d?._id ? String(d._id) : undefined,
       name: d?.name ?? "",
       location: d?.location ?? "",
@@ -21,8 +21,9 @@ export async function GET() {
     }));
 
     return NextResponse.json(out, { status: 200 });
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.error("[api/hospitals] error:", e);
-    return NextResponse.json({ error: e?.message ?? "Internal error" }, { status: 500 });
+    const errorMessage = e instanceof Error ? e.message : "Internal error";
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

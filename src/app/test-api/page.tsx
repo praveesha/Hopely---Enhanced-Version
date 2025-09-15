@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function TestApiPage() {
-  const [shortageData, setShortageData] = useState<any>(null);
+  const [shortageData, setShortageData] = useState<object | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

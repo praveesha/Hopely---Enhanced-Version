@@ -33,8 +33,8 @@ export default function DonationPage() {
           setHospitals([]);
           setFilteredHospitals([]);
           setErrMsg(
-            typeof (payload as any)?.error === "string"
-              ? (payload as any).error
+            typeof (payload as { error?: string })?.error === "string"
+              ? (payload as { error: string }).error
               : "Failed to load hospitals"
           );
         }

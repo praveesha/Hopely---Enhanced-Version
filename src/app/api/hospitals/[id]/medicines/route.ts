@@ -10,12 +10,23 @@ function asObjectId(id: string) {
   try { return new ObjectId(id); } catch { return null; }
 }
 
-function toNum(v: any, d = 0) {
+function toNum(v: unknown, d = 0) {
   const n = Number(v);
   return Number.isFinite(n) ? n : d;
 }
 
-function normalize(doc: any) {
+function normalize(doc: { 
+  medicineName?: string; 
+  name?: string; 
+  medicine?: string;
+  availableStock?: number;
+  quantityAvailable?: number;
+  available?: number;
+  quantityNeeded?: number;
+  needed?: number;
+  required?: number;
+  [key: string]: unknown;
+}) {
   const medicine =
     doc.medicineName ?? doc.name ?? doc.medicine ?? "Unknown";
   const available =
@@ -36,11 +47,12 @@ function normalize(doc: any) {
 
 export async function GET(
   _req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const db = await getDb();
-    const raw = decodeURIComponent(params.id);
+    const raw = decodeURIComponent(id);
 
     // We accept either a hospitals._id OR a hospitals.hospitalId
     let hospitalIdForQuery: string | null = null;
@@ -78,7 +90,8 @@ export async function GET(
 
     const items = docs.map(normalize);
     return NextResponse.json(items, { status: 200 });
-  } catch (e: any) {
-    return NextResponse.json({ error: e?.message ?? String(e) }, { status: 500 });
+  } catch (e: unknown) {
+    const errorMessage = e instanceof Error ? e.message : String(e);
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
