@@ -130,7 +130,7 @@ export default function Home() {
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold bg-gradient-to-r from-amber-300 to-yellow-300 bg-clip-text text-transparent">
-                      ₨2M+
+                      ₨ 12M+
                     </div>
                     <div className="text-sm text-white/70">
                       Donations Raised
@@ -217,7 +217,7 @@ export default function Home() {
             {[
               { number: "1,247", label: "Lives Saved", icon: "heart" },
               { number: "89", label: "Hospitals Supported", icon: "building" },
-              { number: "₨12.5M", label: "Funds Raised", icon: "currency" },
+              { number: "₨ 12.5M", label: "Funds Raised", icon: "currency" },
               { number: "3,890", label: "Generous Donors", icon: "users" },
             ].map((stat, index) => (
               <div key={index} className="group">
