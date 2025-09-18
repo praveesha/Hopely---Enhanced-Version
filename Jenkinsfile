@@ -23,6 +23,12 @@ pipeline {
         }
 
         stage('Test') {
+            agent {
+                docker {
+                    image 'node:18'   // pick your Node.js version
+                    args '-v $WORKSPACE:/app -w /app'
+                }
+            }
             steps {
                 sh 'npm install'
                 sh 'npm run build'
