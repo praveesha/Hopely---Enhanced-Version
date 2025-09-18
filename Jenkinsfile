@@ -13,6 +13,7 @@ pipeline {
         PAYHERE_RETURN_URL = credentials('PAYHERE_RETURN_URL')
         PAYHERE_CANCEL_URL = credentials('PAYHERE_CANCEL_URL')
         NEXTAUTH_URL = credentials('NEXTAUTH_URL')
+        DOCKER_BIN = '/usr/local/bin/docker' // full path to Docker
     }
 
     stages {
@@ -24,22 +25,17 @@ pipeline {
 
         stage('Test') {
             steps {
-                script {
-                    docker.image('node:18').inside("-v $WORKSPACE:/app -w /app") 
-                    {
-                        sh 'npm install'
-                        sh 'npm run build'
-                        sh 'npm test || echo "No tests found, skipping..."'
-                    }
+                dir("$WORKSPACE") {
+                    sh 'npm install'
+                    sh 'npm run build'
+                    sh 'npm test || echo "No tests found, skipping..."'
                 }
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    dockerImage = docker.build("hopely-app:6", "${WORKSPACE}")
-                }
+                sh '$DOCKER_BIN build -t hopely-app:6 .'
             }
         }
 
@@ -48,11 +44,8 @@ pipeline {
                 branch 'main'
             }
             steps {
-                script {
-                    docker.withRegistry('', 'your-dockerhub-credentials') {
-                        dockerImage.push()
-                    }
-                }
+                sh '$DOCKER_BIN login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
+                sh '$DOCKER_BIN push hopely-app:6'
             }
         }
     }
