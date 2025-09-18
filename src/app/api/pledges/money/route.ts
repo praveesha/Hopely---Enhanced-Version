@@ -25,10 +25,11 @@ export async function POST(req: NextRequest) {
       createdAt: new Date(),
       status: "RECORDED", // placeholder; replace with GATEWAY status when integrated
     };
-    const res = await db.collection("money_donations").insertOne(doc as any);
+    const res = await db.collection("money_donations").insertOne(doc);
     return NextResponse.json({ ok: true, id: String(res.insertedId) }, { status: 201 });
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.error("[api/pledges/money] error:", e);
-    return NextResponse.json({ error: e?.message ?? "Internal error" }, { status: 500 });
+    const errorMessage = e instanceof Error ? e.message : "Internal error";
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

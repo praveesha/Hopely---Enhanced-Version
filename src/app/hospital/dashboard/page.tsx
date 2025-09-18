@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Building2,
   User,
@@ -27,7 +27,6 @@ import {
   createShortage,
   getShortagesByHospital,
   cancelShortage,
-  ApiResponse,
 } from "@/lib/shortageApi";
 import DonationProgress from "@/components/DonationProgress";
 import { DonationAPI } from "@/lib/donationApi";
@@ -112,10 +111,13 @@ export default function HospitalDashboard() {
 
   // Load shortages on component mount
   useEffect(() => {
-    loadShortages();
-  }, []);
+    if (hospitalDetails.hospitalId) {
+      loadShortages();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hospitalDetails.hospitalId]);
 
-  const loadShortages = async () => {
+  const loadShortages = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -176,7 +178,7 @@ export default function HospitalDashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [hospitalDetails.hospitalId]);
 
   const handleSaveProfile = () => {
     // Here you would make an API call to your backend for hospital profile
@@ -299,7 +301,9 @@ export default function HospitalDashboard() {
           ].map(({ id, label, icon: Icon }) => (
             <button
               key={id}
-              onClick={() => setActiveTab(id as any)}
+              onClick={() =>
+                setActiveTab(id as "overview" | "profile" | "shortages")
+              }
               className={`flex items-center gap-3 px-6 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg ${
                 activeTab === id
                   ? "bg-gradient-to-r from-[#143f3f] to-emerald-600 text-white shadow-xl"

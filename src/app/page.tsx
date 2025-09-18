@@ -130,7 +130,7 @@ export default function Home() {
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold bg-gradient-to-r from-amber-300 to-yellow-300 bg-clip-text text-transparent">
-                      ₨2M+
+                      ₨ 12M+
                     </div>
                     <div className="text-sm text-white/70">
                       Donations Raised
@@ -202,7 +202,7 @@ export default function Home() {
               Real-Time Impact
             </div>
             <h2 className="text-4xl lg:text-5xl font-bold text-[#143f3f] mb-6">
-              Lives We've{" "}
+              Lives We&apos;ve{" "}
               <span className="bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-400 bg-clip-text text-transparent">
                 Transformed
               </span>
@@ -217,7 +217,7 @@ export default function Home() {
             {[
               { number: "1,247", label: "Lives Saved", icon: "heart" },
               { number: "89", label: "Hospitals Supported", icon: "building" },
-              { number: "₨12.5M", label: "Funds Raised", icon: "currency" },
+              { number: "₨ 12.5M", label: "Funds Raised", icon: "currency" },
               { number: "3,890", label: "Generous Donors", icon: "users" },
             ].map((stat, index) => (
               <div key={index} className="group">
@@ -465,7 +465,7 @@ export default function Home() {
           <p className="text-xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
             Right now, hospitals across Sri Lanka are running short of critical
             medicines. Your donation can be the difference between life and
-            death for someone's loved one.
+            death for someone&apos;s loved one.
           </p>
 
           {/* Super Prominent Donate Now Button */}
@@ -506,7 +506,8 @@ export default function Home() {
 
             <div className="text-white/80 text-center">
               <p className="text-lg mb-4">
-                Join 3,890+ generous donors who've already made a difference
+                Join 3,890+ generous donors who&apos;ve already made a
+                difference
               </p>
               <div className="flex justify-center">
                 <Link

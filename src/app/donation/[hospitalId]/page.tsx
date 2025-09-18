@@ -3,9 +3,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import Navigation from "../../../components/Navigation";
-import DonationProgress, {
-  MiniDonationProgress,
-} from "../../../components/DonationProgress";
 import { MedicineShortage } from "../../../models/MedicineRequest";
 import { DonationAPI } from "../../../lib/donationApi";
 import { formatCurrency } from "../../../lib/donationUtils";

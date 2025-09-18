@@ -80,8 +80,8 @@ export default function ContactPage() {
             </h1>
             <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
               Have questions about our mission? Need support with donations?
-              Want to partner with us? We're here to help and would love to hear
-              from you.
+              Want to partner with us? We&apos;re here to help and would love to
+              hear from you.
             </p>
           </div>
         </div>
@@ -96,13 +96,13 @@ export default function ContactPage() {
               <div className="space-y-8">
                 <div>
                   <h2 className="text-3xl font-bold text-[#143f3f] mb-6">
-                    Let's{" "}
+                    Let&apos;s{" "}
                     <span className="bg-gradient-to-r from-amber-500 to-yellow-500 bg-clip-text text-transparent">
                       Connect
                     </span>
                   </h2>
                   <p className="text-gray-700 leading-relaxed">
-                    We're committed to transparency, support, and building
+                    We&apos;re committed to transparency, support, and building
                     meaningful relationships with our community. Reach out to us
                     through any of these channels.
                   </p>
@@ -297,7 +297,7 @@ export default function ContactPage() {
                           Message sent successfully!
                         </h4>
                         <p className="text-green-600 text-sm">
-                          We'll get back to you within 24 hours.
+                          We&apos;ll get back to you within 24 hours.
                         </p>
                       </div>
                     </div>

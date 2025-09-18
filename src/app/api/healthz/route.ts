@@ -13,7 +13,8 @@ export async function GET() {
       db: process.env.DB_NAME,
       collections: collections.map(c => c.name),
     });
-  } catch (e: any) {
-    return NextResponse.json({ ok: false, error: e?.message ?? String(e) }, { status: 500 });
+  } catch (e: unknown) {
+    const errorMessage = e instanceof Error ? e.message : String(e);
+    return NextResponse.json({ ok: false, error: errorMessage }, { status: 500 });
   }
 }
