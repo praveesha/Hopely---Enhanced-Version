@@ -30,9 +30,14 @@ pipeline {
                 }
             }
             steps {
-                sh 'npm install'
-                sh 'npm run build'
-                sh 'npm run test || echo "No tests found"'  // Won't fail if no tests
+                script {
+                    docker.image('node:18').inside("-v $WORKSPACE:/app -w /app") 
+                    {
+                        sh 'npm install'
+                        sh 'npm run build'
+                        sh 'npm test || echo "No tests found, skipping..."'
+                    }
+                }
             }
         }
 
