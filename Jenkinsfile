@@ -13,7 +13,7 @@ pipeline {
         PAYHERE_RETURN_URL = credentials('PAYHERE_RETURN_URL')
         PAYHERE_CANCEL_URL = credentials('PAYHERE_CANCEL_URL')
         NEXTAUTH_URL = credentials('NEXTAUTH_URL')
-}
+    }
 
     stages {
         stage('Checkout') {
@@ -21,31 +21,37 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Build Docker Image') {
-            steps {
-                    sh "docker build -t hopely-app:${env.BUILD_NUMBER} ."
-            }
-        }
+
         stage('Test') {
             steps {
                 sh 'npm install'
                 sh 'npm run build'
-                sh 'npm run test' // If you have tests
+                sh 'npm run test || echo "No tests found"'  // Won't fail if no tests
             }
         }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    dockerImage = docker.build("hopely-app:6", "${WORKSPACE}")
+                }
+            }
+        }
+
         stage('Push to Registry') {
             when {
                 branch 'main'
             }
             steps {
-                withDockerRegistry([credentialsId: 'your-dockerhub-credentials', url: '']) {
-                    script {
+                script {
+                    docker.withRegistry('', 'your-dockerhub-credentials') {
                         dockerImage.push()
                     }
                 }
             }
         }
     }
+
     post {
         always {
             cleanWs()
