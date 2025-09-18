@@ -23,12 +23,6 @@ pipeline {
         }
 
         stage('Test') {
-            agent {
-                docker {
-                    image 'node:18'   // pick your Node.js version
-                    args '-v $WORKSPACE:/app -w /app'
-                }
-            }
             steps {
                 script {
                     docker.image('node:18').inside("-v $WORKSPACE:/app -w /app") 
