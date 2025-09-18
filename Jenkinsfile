@@ -23,9 +23,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                script {
-                    dockerImage = docker.build("hopely-app:${env.BUILD_NUMBER}")
-                }
+                    sh "docker build -t hopely-app:${env.BUILD_NUMBER} ."
             }
         }
         stage('Test') {
