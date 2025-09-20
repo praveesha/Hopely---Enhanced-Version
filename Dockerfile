@@ -3,6 +3,11 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Provide dummy env so Next.js build doesn't fail
+ARG MONGODB_URI="mongodb://dummy"
+ENV MONGODB_URI=${MONGODB_URI}
+
+
 # Install dependencies first (cached if package.json doesn't change)
 COPY package*.json ./
 RUN npm install
