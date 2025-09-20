@@ -38,20 +38,21 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    // Build the Docker image
-                    def appImage = docker.build("hopely-app:6", "--build-arg MONGODB_URI=${MONGODB_URI} .")
+                withEnv(["PATH+DOCKER=/usr/local/bin"]) {
+                    sh 'docker build -t hopely-app:6 .'
                 }
             }
         }
 
         stage('Run Docker Container (Test)') {
             steps {
-                script {
-                    docker.image("hopely-app:6").inside("-p 3000:3000") {
-                        sh 'echo "App container running for testing..."'
-                        // Optionally run health checks here
-                    }
+                withEnv(["PATH+DOCKER=/usr/local/bin"]) {
+                    sh '''
+                        docker run -d --rm \
+                        -e MONGODB_URI=$MONGODB_URI \
+                        -e PAYHERE_MERCHANT_SECRET=$PAYHERE_MERCHANT_SECRET \
+                        -p 3000:3000 hopely-app:6
+                    '''
                 }
             }
         }
