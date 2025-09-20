@@ -38,7 +38,9 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t hopely-app:6 .'
+                withEnv(["PATH+DOCKER=/usr/local/bin"]) {
+                    sh 'docker build -t hopely-app:6 .'
+                }
             }
         }
 
@@ -46,7 +48,7 @@ pipeline {
             steps {
                 withEnv(["PATH+DOCKER=/usr/local/bin"]) {
                     sh '''
-                        docker run -d --rm --name hopely-test \
+                        docker run -d --rm \
                         -e MONGODB_URI=$MONGODB_URI \
                         -e PAYHERE_MERCHANT_SECRET=$PAYHERE_MERCHANT_SECRET \
                         -p 3000:3000 hopely-app:6
