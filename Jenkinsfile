@@ -24,15 +24,15 @@ pipeline {
 
         stage('Install & Test') {
             steps {
-                // Use NodeJS v20 tool
-                tool name: 'NodeJS-20', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
-
-                dir("$WORKSPACE") {
-                    sh 'node -v'
-                    sh 'npm -v'
-                    sh 'rm -rf node_modules package-lock.json'
-                    sh 'npm install'
-                    sh 'npm run build'
+                // Wrap with withEnv to activate NodeJS tool
+                withEnv(["PATH+NODE=${tool 'NodeJS-20'}/bin"]) {
+                    dir("$WORKSPACE") {
+                        sh 'node -v'
+                        sh 'npm -v'
+                        sh 'rm -rf node_modules package-lock.json'
+                        sh 'npm install'
+                        sh 'npm run build'
+                    }
                 }
             }
         }
