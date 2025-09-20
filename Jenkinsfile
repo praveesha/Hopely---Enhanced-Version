@@ -23,12 +23,21 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Install & Test') {
             steps {
-                dir("$WORKSPACE") {
-                    sh 'npm install'
-                    sh 'npm run build'
-                    sh 'npm test || echo "No tests found, skipping..."'
+                // use NodeJS tool so npm & node are in PATH
+                tool name: 'NodeJS-24', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
+                script {
+                    def nodeHome = tool 'NodeJS-24'
+                    withEnv(["PATH+NODE=${nodeHome}/bin"]) {
+                        dir("$WORKSPACE") {
+                            sh 'node -v'
+                            sh 'npm -v'
+                            sh 'npm install'
+                            sh 'npm run build'
+                            sh 'npm test || echo "No tests found, skipping..."'
+                        }
+                    }
                 }
             }
         }
