@@ -13,7 +13,6 @@ pipeline {
         PAYHERE_RETURN_URL = credentials('PAYHERE_RETURN_URL')
         PAYHERE_CANCEL_URL = credentials('PAYHERE_CANCEL_URL')
         NEXTAUTH_URL = credentials('NEXTAUTH_URL')
-        DOCKER_BIN = '/usr/local/bin/docker' // full path to Docker
     }
 
     stages {
@@ -25,26 +24,22 @@ pipeline {
 
         stage('Install & Test') {
             steps {
-                // use NodeJS tool so npm & node are in PATH
-                tool name: 'NodeJS-24', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
-                script {
-                    def nodeHome = tool 'NodeJS-24'
-                    withEnv(["PATH+NODE=${nodeHome}/bin"]) {
-                        dir("$WORKSPACE") {
-                            sh 'node -v'
-                            sh 'npm -v'
-                            sh 'npm install'
-                            sh 'npm run build'
-                            sh 'npm test || echo "No tests found, skipping..."'
-                        }
-                    }
+                // Use NodeJS v20 tool
+                tool name: 'NodeJS-20', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
+
+                dir("$WORKSPACE") {
+                    sh 'node -v'
+                    sh 'npm -v'
+                    sh 'rm -rf node_modules package-lock.json'
+                    sh 'npm install'
+                    sh 'npm run build'
                 }
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh '$DOCKER_BIN build -t hopely-app:6 .'
+                sh '/usr/local/bin/docker build -t hopely-app:6 .'
             }
         }
 
@@ -53,8 +48,8 @@ pipeline {
                 branch 'main'
             }
             steps {
-                sh '$DOCKER_BIN login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
-                sh '$DOCKER_BIN push hopely-app:6'
+                sh '/usr/local/bin/docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
+                sh '/usr/local/bin/docker push hopely-app:6'
             }
         }
     }
