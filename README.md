@@ -90,5 +90,3 @@ Result: **Zero manual steps** between commit and deployment.
 - Replace DockerHub with **AWS ECR** for tighter IAM-based security
 - Secrets management with **AWS Secrets Manager / SSM**
 
-So you have mentioned some points that would make my project stand out, right? Can you like mention those under future implementations, because I would be like scaling this up to ECS or EKS with load balancing and secret management and then IEC, and then automated testings, then monitoring. I would be doing all these things. Can you kindly mention that under future developments?
-
