@@ -14,6 +14,13 @@ The goal of this project is to showcase production-grade deployment practices: b
 - **Hosting**: AWS EC2 (Ubuntu 22.04 LTS)
 - **Reverse Proxy / TLS**: Nginx + Let’s Encrypt (optional production step)
 
+[![Docker](https://img.shields.io/badge/Docker-24-blue?style=for-the-badge&logo=docker)](https://www.docker.com/)
+[![Jenkins](https://img.shields.io/badge/Jenkins-LTS-red?style=for-the-badge&logo=jenkins)](https://www.jenkins.io/)
+[![AWS](https://img.shields.io/badge/AWS-Cloud-orange?style=for-the-badge&logo=amazon-aws)](https://aws.amazon.com/)
+[![Next.js](https://img.shields.io/badge/Next.js-15.5.0-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-7.0-green?style=for-the-badge&logo=mongodb)](https://www.mongodb.com/)
+[![PayHere](https://img.shields.io/badge/PayHere-Integration-orange?style=for-the-badge)](https://www.payhere.lk/)
+
 ---
 
 ## ⚙️ Pipeline Overview
@@ -31,13 +38,6 @@ The Jenkins pipeline (`Jenkinsfile`) automates the following:
    - Pull the latest image  
    - Stop and remove old container  
    - Run the new container with required environment variables  
-
-[![Next.js](https://img.shields.io/badge/Next.js-15.5.0-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-7.0-green?style=for-the-badge&logo=mongodb)](https://www.mongodb.com/)
-[![PayHere](https://img.shields.io/badge/PayHere-Integration-orange?style=for-the-badge)](https://www.payhere.lk/)
-[![Docker](https://img.shields.io/badge/Docker-24-blue?style=for-the-badge&logo=docker)](https://www.docker.com/)
-[![Jenkins](https://img.shields.io/badge/Jenkins-LTS-red?style=for-the-badge&logo=jenkins)](https://www.jenkins.io/)
-[![AWS](https://img.shields.io/badge/AWS-Cloud-orange?style=for-the-badge&logo=amazon-aws)](https://aws.amazon.com/)
 
 ---
 
