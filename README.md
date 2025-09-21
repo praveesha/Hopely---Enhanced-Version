@@ -32,6 +32,13 @@ The Jenkins pipeline (`Jenkinsfile`) automates the following:
    - Stop and remove old container  
    - Run the new container with required environment variables  
 
+[![Next.js](https://img.shields.io/badge/Next.js-15.5.0-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-7.0-green?style=for-the-badge&logo=mongodb)](https://www.mongodb.com/)
+[![PayHere](https://img.shields.io/badge/PayHere-Integration-orange?style=for-the-badge)](https://www.payhere.lk/)
+[![Docker](https://img.shields.io/badge/Docker-24-blue?style=for-the-badge&logo=docker)](https://www.docker.com/)
+[![Jenkins](https://img.shields.io/badge/Jenkins-LTS-red?style=for-the-badge&logo=jenkins)](https://www.jenkins.io/)
+[![AWS](https://img.shields.io/badge/AWS-Cloud-orange?style=for-the-badge&logo=amazon-aws)](https://aws.amazon.com/)
+
 ---
 
 ## ✅ Test Integrations
