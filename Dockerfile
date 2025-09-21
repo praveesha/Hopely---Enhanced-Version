@@ -10,7 +10,9 @@ ENV MONGODB_URI=${MONGODB_URI}
 
 # Install dependencies first (cached if package.json doesn't change)
 COPY package*.json ./
-RUN npm install
+
+# Install deps inside Docker
+RUN npm ci
 
 # Copy source code
 COPY . .
