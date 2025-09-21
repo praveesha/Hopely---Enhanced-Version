@@ -13,6 +13,7 @@ pipeline {
         PAYHERE_RETURN_URL = credentials('PAYHERE_RETURN_URL')
         PAYHERE_CANCEL_URL = credentials('PAYHERE_CANCEL_URL')
         NEXTAUTH_URL = credentials('NEXTAUTH_URL')
+        PATH = "/usr/local/bin:$PATH"
     }
 
     stages {
@@ -46,14 +47,12 @@ pipeline {
 
         stage('Run Docker Container (Test)') {
             steps {
-                withEnv(["PATH+DOCKER=/usr/local/bin"]) {
-                    sh '''
-                        docker run -d --rm \
-                        -e MONGODB_URI=$MONGODB_URI \
-                        -e PAYHERE_MERCHANT_SECRET=$PAYHERE_MERCHANT_SECRET \
-                        -p 3000:3000 hopely-app:6
-                    '''
-                }
+                sh '''
+                    docker run -d --rm \
+                    -e MONGODB_URI=$MONGODB_URI \
+                    -e PAYHERE_MERCHANT_SECRET=$PAYHERE_MERCHANT_SECRET \
+                    -p 3000:3000 hopely-app:6
+                '''
             }
         }
 
